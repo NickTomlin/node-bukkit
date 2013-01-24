@@ -22,6 +22,7 @@ var app = express();
 
 app.get('/', function(request, response) {
 
+  // TO-DO: why can't we push to this?
   var bukkits = []; // hold our bukkit objects
 
     jsdom.env(
