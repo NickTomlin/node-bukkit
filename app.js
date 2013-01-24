@@ -18,7 +18,7 @@ if (process.env.REDISTOGO_URL) {
    Kick off our app
    ========================================================================== */
 
-var app = express.createServer(express.logger());
+var app = express();
 
 app.get('/', function(request, response) {
 	  response.send('Hello World!');
