@@ -108,6 +108,9 @@
     },
     "redis": {
       "version": "0.8.2"
+    },
+    "hiredis": {
+      "version": "0.1.10"
     }
   }
 }
