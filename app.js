@@ -1,17 +1,28 @@
 /* Dependencies */
-var express = require('express');
-var jsdom = require("jsdom");
+var express = require('express')
+, request = require('request')
+, cheerio = require('cheerio');
+// var jsdom = require("jsdom");
 
-// Authenticate with redis
-if (process.env.REDISTOGO_URL) {
-  var rtg = require("url").parse(process.env.REDISTOGO_URL);
-  var redis = require("redis").createClient(rtg.port,rtg.hostname);
+// // Authenticate with redis
+// if (process.env.REDISTOGO_URL) {
+//   var rtg = require("url").parse(process.env.REDISTOGO_URL);
+//   var redis = require("redis").createClient(rtg.port,rtg.hostname);
 
-  redis.auth(rtg.auth.split(":")[1]);
+//   redis.auth(rtg.auth.split(":")[1]);
 
-} else {
-  var redis = require("redis").createClient();
-}
+// } else {
+//   var redis = require("redis").createClient();
+// }
+  var bukkits = []; // hold our bukkit objects
+  var url = 'http://bukk.it/'; // bukk.it
+  // var targets = 'td a';
+
+  // request(url, function(err, resp, body){
+  //   $ = cheerio.load(body);
+  //   console.log(body);
+
+  // });
 
 
 /* ==========================================================================
@@ -20,29 +31,18 @@ if (process.env.REDISTOGO_URL) {
 
 var app = express();
 
-app.get('/', function(request, response) {
-
+app.get('/', function(req, resp) {
   // TO-DO: why can't we push to this?
-  var bukkits = []; // hold our bukkit objects
 
-    jsdom.env(
-    "http://bukk.it/",
-    ["http://code.jquery.com/jquery.js"],
-    function (errors, window) {
-      anchors = window.$('td a');
-      console.log("crawling", anchors.length, "bukkits");
-      anchors.each(function(){
-        item = {};
-        item.url = this.getAttribute("href");
-        item.name = this.innerHTML; // perhaps chop off the extension later on?
-        redis.set(item.name,item.url);
-        console.log(item);
-        bukkits.push(item);
-      });
-    }
-    );
-    // this is NOT working right now, do I need to request this as part of a function or something?
-	response.send('<img src="http://bukk.it/' + redis.get("wubwubwub.gif") + '">');
+  request(url, function(err, response, body){
+    $ = cheerio.load(body);
+    console.log(body);
+
+  });
+
+  response.send("Bukkits: " + bukkits.length);
+  // this is NOT working right now, do I need to request this as part of a function or something?
+	// response.send('<img src="http://bukk.it/' + redis.get("wubwubwub.gif") + '">');
 });
 
 var port = process.env.PORT || 5000;
