@@ -2,28 +2,17 @@
 var express = require('express')
 , request = require('request')
 , cheerio = require('cheerio');
-// var jsdom = require("jsdom");
 
-// // Authenticate with redis
-// if (process.env.REDISTOGO_URL) {
-//   var rtg = require("url").parse(process.env.REDISTOGO_URL);
-//   var redis = require("redis").createClient(rtg.port,rtg.hostname);
+// [Authenticate with redis](https://devcenter.heroku.com/articles/redistogo#using-with-node)
+if (process.env.REDISTOGO_URL) {
+  var rtg = require("url").parse(process.env.REDISTOGO_URL);
+  var redis = require("redis").createClient(rtg.port,rtg.hostname);
 
-//   redis.auth(rtg.auth.split(":")[1]);
+  redis.auth(rtg.auth.split(":")[1]);
 
-// } else {
-//   var redis = require("redis").createClient();
-// }
-  var bukkits = []; // hold our bukkit objects
-  var url = 'http://bukk.it/'; // bukk.it
-  // var targets = 'td a';
-
-  // request(url, function(err, resp, body){
-  //   $ = cheerio.load(body);
-  //   console.log(body);
-
-  // });
-
+} else {
+  var redis = require("redis").createClient();
+}
 
 /* ==========================================================================
    Kick off our app
@@ -31,18 +20,29 @@ var express = require('express')
 
 var app = express();
 
-app.get('/', function(req, resp) {
+app.get('/', function(req, response) {
   // TO-DO: why can't we push to this?
 
-  request(url, function(err, response, body){
-    $ = cheerio.load(body);
-    console.log(body);
+  var bukkits = []; // hold our bukkit objects
+  var url = 'http://bukk.it/'; // bukk.it
+  var targets = 'td a';
 
+  request(url, function(err, resp, body){
+    $ = cheerio.load(body);
+    // for each of our targets (within the request body)...
+    $(targets).each(function(){
+      content = $(this).text();
+      // redis.set($(this).text());
+      redis.set("bukkit:" + content, content);
+    })
   });
 
-  response.send("Bukkits: " + bukkits.length);
+  redis.randomkey( function (err, key) {
+        console.log (key)
+    });
+  response.send("<h1>bloop</h1>" );
   // this is NOT working right now, do I need to request this as part of a function or something?
-	// response.send('<img src="http://bukk.it/' + redis.get("wubwubwub.gif") + '">');
+	// response.send('<img src="http://bukk.it/' + redis.get(".gif") + '">');
 });
 
 var port = process.env.PORT || 5000;
