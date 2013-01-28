@@ -4,14 +4,21 @@ var express = require('express')
 , cheerio = require('cheerio');
 
 // [Authenticate with redis](https://devcenter.heroku.com/articles/redistogo#using-with-node)
-if (process.env.REDISTOGO_URL) {
-  var rtg = require("url").parse(process.env.REDISTOGO_URL);
-  var redis = require("redis").createClient(rtg.port,rtg.hostname);
+// if (process.env.REDISTOGO_URL) {
+//   var rtg = require("url").parse(process.env.REDISTOGO_URL);
+//   var redis = require("redis").createClient(rtg.port,rtg.hostname);
 
-  redis.auth(rtg.auth.split(":")[1]);
+//   redis.auth(rtg.auth.split(":")[1]);
 
-} else {
-  var redis = require("redis").createClient();
+// } else {
+//   var redis = require("redis").createClient();
+// }
+
+/* ==========================================================================
+   Helpers (move these into another module)
+   ========================================================================== */
+function rand(min,max){
+  return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
 
 /* ==========================================================================
@@ -20,7 +27,7 @@ if (process.env.REDISTOGO_URL) {
 
 var app = express();
 
-app.get('/', function(req, response) {
+app.get('/rand', function(req, response) {
   // TO-DO: why can't we push to this?
 
   var bukkits = []; // hold our bukkit objects
@@ -33,14 +40,21 @@ app.get('/', function(req, response) {
     $(targets).each(function(){
       content = $(this).text();
       // redis.set($(this).text());
-      redis.set("bukkit:" + content, content);
+      // redis.set("bukkit:" + content, content);
+      bukkits.push(content);
     })
+    if (err) {
+      return
+    }
+    //  use our randNum function from blackjack
+      var randBukkit = rand(1,bukkits.length);
+      response.send('http://bukk.it/'+bukkits[randBukkit], '<img src="http://bukk.it/'+ bukkits[randBukkit] + "\">");
   });
 
-  redis.randomkey( function (err, key) {
-        console.log (key)
-    });
-  response.send("<h1>bloop</h1>" );
+  // redis.randomkey( function (err, key) {
+  //       console.log (key)
+  //   });
+  // response.send("<h1>bloop</h1>" );
   // this is NOT working right now, do I need to request this as part of a function or something?
 	// response.send('<img src="http://bukk.it/' + redis.get(".gif") + '">');
 });
