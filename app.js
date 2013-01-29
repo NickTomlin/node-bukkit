@@ -26,6 +26,9 @@ function rand(min,max){
    ========================================================================== */
 
 var app = express();
+app.get('/', function(req, response){
+  response.send('Hello');
+});
 
 app.get('/rand', function(req, response) {
   // TO-DO: why can't we push to this?
