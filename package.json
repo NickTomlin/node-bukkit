@@ -5,9 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "express": "~3.0.6",
-    "hiredis": "~0.1.14",
     "cheerio": "~0.10.5",
-    "redis": "~0.8.2",
     "jade": "~0.28.1",
     "request": "~2.12.0"
   },
