@@ -27,11 +27,6 @@ function rand(min,max){
 
 var app = express();
 app.get('/', function(req, response){
-  response.send('Hello');
-});
-
-app.get('/rand', function(req, response) {
-  // TO-DO: why can't we push to this?
 
   var bukkits = []; // hold our bukkit objects
   var url = 'http://bukk.it/'; // bukk.it
