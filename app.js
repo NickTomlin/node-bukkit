@@ -1,7 +1,7 @@
 /* Dependencies */
 var express = require('express')
-, request = require('request');
-// , cheerio = require('cheerio');
+, request = require('request')
+, cheerio = require('cheerio');
 
 // [Authenticate with redis](https://devcenter.heroku.com/articles/redistogo#using-with-node)
 // if (process.env.REDISTOGO_URL) {
