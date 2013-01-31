@@ -43,7 +43,7 @@ app.get('/rand', function(req, response){
       // 'http://bukk.it/'+bukkits[randBukkit],
       // response.send( '<img src="http://bukk.it/'+ bukkits[randBukkit] + "\">");
      // response.send( '<img src="http://bukk.it/'+ bukkits[randBukkit] + "\">");
-     response.send('<img src="http://bukk.it/clint.jpg>');
+     response.send('<img src="http://bukk.it/clint.jpg">');
   });
 
 });
