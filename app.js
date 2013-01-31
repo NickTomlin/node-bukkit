@@ -33,21 +33,20 @@ app.get('/', function(req, response){
   var targets = 'td a';
 
   request(url, function(err, resp, body){
-    // $ = cheerio.load(body);
-    // // for each of our targets (within the request body)...
-    // $(targets).each(function(){
-    //   content = $(this).text();
-    //   // redis.set($(this).text());
-    //   // redis.set("bukkit:" + content, content);
-    //   bukkits.push(content);
-    // })
-    // if (err) {
-    //   return
-    // }
-    // //  use our randNum function from blackjack
-    //   var randBukkit = rand(1,bukkits.length);
-    //   response.send('http://bukk.it/'+bukkits[randBukkit], '<img src="http://bukk.it/'+ bukkits[randBukkit] + "\">");
-    response.send("test!");
+    $ = cheerio.load(body);
+    // for each of our targets (within the request body)...
+    $(targets).each(function(){
+      content = $(this).text();
+      // redis.set($(this).text());
+      // redis.set("bukkit:" + content, content);
+      bukkits.push(content);
+    })
+    if (err) {
+      return
+    }
+    //  use our randNum function from blackjack
+      var randBukkit = rand(1,bukkits.length);
+      response.send('http://bukk.it/'+bukkits[randBukkit], '<img src="http://bukk.it/'+ bukkits[randBukkit] + "\">");
   });
 
   // redis.randomkey( function (err, key) {
