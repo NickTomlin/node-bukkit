@@ -40,7 +40,10 @@ app.get('/rand', function(req, response){
     }
     //  use our randNum function from blackjack
       var randBukkit = rand(1,bukkits.length);
-      response.send('http://bukk.it/'+bukkits[randBukkit], '<img src="http://bukk.it/'+ bukkits[randBukkit] + "\">");
+      // 'http://bukk.it/'+bukkits[randBukkit],
+      // response.send( '<img src="http://bukk.it/'+ bukkits[randBukkit] + "\">");
+     // response.send( '<img src="http://bukk.it/'+ bukkits[randBukkit] + "\">");
+     response.send('<img src="http://bukk.it/clint.jpg');
   });
 
 });
