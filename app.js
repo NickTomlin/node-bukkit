@@ -15,14 +15,9 @@ function rand(min,max){
    ========================================================================== */
 
 var app = express();
+
+
 app.get('/', function(req, response){
-
-response.send("Index. Dawg.")
-
-});
-
-
-app.get('/rand', function(req, response){
 
   var bukkits = []; // hold our bukkit objects
   var url = 'http://bukk.it/'; // bukk.it
@@ -38,14 +33,17 @@ app.get('/rand', function(req, response){
     if (err) {
       return
     }
-    //  use our randNum function from blackjack
+    //  use our randNum function from
       var randBukkit = rand(1,bukkits.length);
-      // 'http://bukk.it/'+bukkits[randBukkit],
-      // response.send( '<img src="http://bukk.it/'+ bukkits[randBukkit] + "\">");
-     // response.send( '<img src="http://bukk.it/'+ bukkits[randBukkit] + "\">");
 
      response.send('<img src="http://bukk.it/' + bukkits[randBukkit]  + '\">' );
   });
+
+});
+
+app.get('/hello', function(req, response){
+
+  response.send("Index. Dawg.")
 
 });
 
