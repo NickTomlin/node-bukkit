@@ -33,12 +33,10 @@ app.get('/', function(req, response){
     if (err) {
       return
     }
-    //  use our randNum function from
-      var randBukkit = rand(1,bukkits.length);
-
-     response.send('<img src="http://bukk.it/' + bukkits[randBukkit]  + '\">' );
+    //  use our randNum function
+      var randomBukkit = 'http://bukk.it/' + bukkits[rand(1,bukkits.length)] ;
+      response.redirect(303,randomBukkit);
   });
-
 });
 
 app.get('/hello', function(req, response){
