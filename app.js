@@ -47,8 +47,23 @@ app.get('/rand', function(req, response){
       response.header("Expires", 0);
       // perhaps you can set the mime type here by response.type('image/' + randomBukket.slice([randombukkit.length -4]) )
       response.redirect(307,returnBukkit);
-  });
+}
+/* ==========================================================================
+   Kick off our app
+   ========================================================================== */
+
+var app = express();
+
+app.get('/', function(req, response){
+
+  response.send("Index. Dawg.")
+
 });
+
+app.get('/all', function(req, response)) {
+
+  response.send();
+}
 
 
 var port = process.env.PORT || 5000;
