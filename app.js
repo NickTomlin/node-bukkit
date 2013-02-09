@@ -53,13 +53,23 @@ app.get('/rand', function(req, response){
 
 // our json route
 app.get('/all', function(req, response) {
-  exampleObj = [
-    {
-      "name" : "test",
-      "party" : "haha"
+
+  var bukkits = []; // hold our bukkit objects
+  var url = 'http://bukk.it/'; // bukk.it
+  var targets = 'td a';
+
+  request(url, function(err, resp, body){
+    $ = cheerio.load(body);
+    // for each of our targets (within the request body)...
+    $(targets).each(function(){
+      content = $(this).text();
+      bukkits.push(content);
+    })
+    if (err) {
+      return
     }
-  ]
-    response.send(JSON.stringify(exampleObj));
+    response.send(JSON.stringify(bukkits));
+  });
 });
 
 
