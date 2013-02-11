@@ -1,14 +1,10 @@
 /* Dependencies */
 var express = require('express')
 , request = require('request')
-, cheerio = require('cheerio');
+, bukkits = require('./bukkits.js')
+, helpers = require('./helpers.js')
+; /* END dependencies*/
 
-/* ==========================================================================
-   Helpers (move these into another module)
-   ========================================================================== */
-function rand(min,max){
-  return Math.floor(Math.random() * (max - min + 1) ) + min;
-}
 
 /* ==========================================================================
    Kick off our app
@@ -18,58 +14,36 @@ var app = express();
 
 app.get('/', function(req, response){
 
-  response.send("Index. Dawg.")
+  response.send("Index. Dawg.");
 
 });
 
 /* Move these to a handlers area
 =================================*/
 app.get('/rand', function(req, response){
+    bukkits.get(randBukkit);
 
-  var bukkits = []; // hold our bukkit objects
-  var url = 'http://bukk.it/'; // bukk.it
-  var targets = 'td a';
-
-  request(url, function(err, resp, body){
-    $ = cheerio.load(body);
-    // for each of our targets (within the request body)...
-    $(targets).each(function(){
-      content = $(this).text();
-      bukkits.push(content);
-    })
-    if (err) {
-      return
-    }
-    //  use our randNum function
-      var randomBukkit = bukkits[rand(1,bukkits.length)];
+    function randBukkit(bukkits) {
+      var randomBukkit = bukkits[helpers.rand(1,bukkits.length)];
       var returnBukkit = 'http://bukk.it/' +randomBukkit;
+
+      // an attempt at cache-busting for img[src]; does not work at the moment
       response.header("Cache-Control", "no-cache, no-store, must-revalidate");
       response.header("Pragma", "no-cache");
       response.header("Expires", 0);
-      // perhaps you can set the mime type here by response.type('image/' + randomBukket.slice([randombukkit.length -4]) )
       response.redirect(307,returnBukkit);
-  });
+    }
 });
 
 // our json route
 app.get('/all', function(req, response) {
 
-  var bukkits = []; // hold our bukkit objects
-  var url = 'http://bukk.it/'; // bukk.it
-  var targets = 'td a';
-
-  request(url, function(err, resp, body){
-    $ = cheerio.load(body);
-    // for each of our targets (within the request body)...
-    $(targets).each(function(){
-      content = $(this).text();
-      bukkits.push(content);
-    })
-    if (err) {
-      return
+  bukkits.get(allBukkits);
+    function allBukkits(bukkits) {
+      var returnBukkit = JSON.stringify(bukkits);
+      response.redirect(307,returnBukkit);
     }
-    response.send(JSON.stringify(bukkits));
-  });
+
 });
 
 
