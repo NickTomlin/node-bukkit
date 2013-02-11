@@ -41,7 +41,7 @@ app.get('/all', function(req, response) {
   bukkits.get(allBukkits);
     function allBukkits(bukkits) {
       var returnBukkit = JSON.stringify(bukkits);
-      response.redirect(307,returnBukkit);
+      response.send(returnBukkit);
     }
 
 });
