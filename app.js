@@ -3,6 +3,8 @@ var express = require('express')
 , request = require('request')
 , bukkits = require('./bukkits.js')
 , helpers = require('./helpers.js')
+, routes = require('./routes/routes.js')
+, path = require ('path')
 ; /* END dependencies*/
 
 
@@ -12,39 +14,23 @@ var express = require('express')
 
 var app = express();
 
-app.get('/', function(req, response){
-
-  response.send("Index. Dawg.");
-
+app.configure(function(){
+  app.set('view engine', 'jade');
+  app.set('views', __dirname + '/views');
+  app.use(express.logger('dev'));
+  app.use(require('stylus').middleware(__dirname +'/public'));
+  app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.compress());
 });
+
+app.get('/', routes.index);
 
 /* Move these to a handlers area
 =================================*/
-app.get('/rand', function(req, response){
-    bukkits.get(randBukkit);
-
-    function randBukkit(bukkits) {
-      var randomBukkit = bukkits[helpers.rand(1,bukkits.length)];
-      var returnBukkit = 'http://bukk.it/' +randomBukkit;
-
-      // an attempt at cache-busting for img[src]; does not work at the moment
-      response.header("Cache-Control", "no-cache, no-store, must-revalidate");
-      response.header("Pragma", "no-cache");
-      response.header("Expires", 0);
-      response.redirect(307,returnBukkit);
-    }
-});
+app.get('/rand', routes.rand );
 
 // our json route
-app.get('/all', function(req, response) {
-
-  bukkits.get(allBukkits);
-    function allBukkits(bukkits) {
-      var returnBukkit = JSON.stringify(bukkits);
-      response.send(returnBukkit);
-    }
-
-});
+app.get('/all', routes.all);
 
 
 var port = process.env.PORT || 5000;

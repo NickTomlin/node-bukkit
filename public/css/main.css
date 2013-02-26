@@ -1,0 +1,16 @@
+@import url("http://fonts.googleapis.com/css?family=Ubuntu+Mono");
+html {
+  font-size: 100%;
+}
+body {
+  font-family: 'Ubuntu Mono', Monospace;
+  font-size: 2em;
+  line-height: 1;
+  margin: 0 auto;
+  max-width: 20em;
+}
+a.button {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
