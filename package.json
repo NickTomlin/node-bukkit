@@ -7,7 +7,9 @@
     "express": "~3.0.6",
     "jade": "~0.28.1",
     "request": "~2.12.0",
-    "cheerio": "~0.10.6"
+    "cheerio": "~0.10.6",
+    "stylus": "~0.32.0",
+    "nib": "~0.9.1"
   },
   "devDependencies": {},
   "scripts": {
@@ -18,9 +20,9 @@
     "url": "git@heroku.com:enigmatic-lowlands-4486.git"
   },
   "engines": {
-      "node": "0.8.x",
-      "npm":  "1.1.x"
-    },
+    "node": "0.8.x",
+    "npm": "1.1.x"
+  },
   "author": "",
   "license": "BSD",
   "gitHead": "039883ae836996bc80ecb6e656bed6ee34674c92"
