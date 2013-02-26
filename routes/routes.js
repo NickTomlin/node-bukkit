@@ -3,7 +3,7 @@ var helpers = require('../helpers.js');
 
 exports.index = function index (req,res) {
   res.render('index', {
-    title : 'Home'
+    title : 'Bukkit Api'
   });
 };
 
