@@ -31,6 +31,7 @@ app.get('/rand', routes.rand );
 
 // our json route
 app.get('/all', routes.all);
+app.get('/all/:number',routes.all);
 
 
 var port = process.env.PORT || 5000;

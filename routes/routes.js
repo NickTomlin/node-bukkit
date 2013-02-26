@@ -21,11 +21,16 @@ exports.rand = function rand (req, res){
     });
 };
 
+// /all/:number
 exports.all = function(req, res) {
   bukkits.get(
-    // callback
     function allBukkits(bukkits) {
-      var returnBukkit = JSON.stringify(bukkits);
+      var length = bukkits.length;
+      var num = req.params.number;
+      console.log(req.params.number);
+      var slice = num  && num < length ? length - num : 0;
+      console.log("slice " + slice);
+      var returnBukkit = JSON.stringify({ "root": 'http://bukk.it', "content" : bukkits.slice(slice)});
       res.send(returnBukkit);
   });
 };
