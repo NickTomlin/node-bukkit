@@ -1,11 +1,11 @@
-/* Dependencies */
 var express = require('express')
 , request = require('request')
+, util = require('util')
 , bukkits = require('./bukkits.js')
 , helpers = require('./helpers.js')
 , routes = require('./routes/routes.js')
 , path = require ('path')
-; /* END dependencies*/
+;
 
 
 /* ==========================================================================
@@ -25,13 +25,10 @@ app.configure(function(){
 
 app.get('/', routes.index);
 
-/* Move these to a handlers area
-=================================*/
+// consider merging these?
 app.get('/rand', routes.rand );
-
-// our json route
-app.get('/all', routes.all);
-app.get('/all/:number',routes.all);
+app.get('/all', routes.selection);
+app.get('/all/:number',routes.selection);
 
 
 var port = process.env.PORT || 5000;
