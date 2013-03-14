@@ -23,10 +23,13 @@ app.configure(function(){
   app.use(express.compress());
 });
 
+// index. static html
 app.get('/', routes.index);
 
-// consider merging these?
-app.get('/rand', routes.rand );
+// serve an image from bukk.it (for use with simple requests -- like <img src="bukkit.nick-tomlin.com/single">)
+app.get('/single', routes.rand );
+
+// the meat of the api, returns JSON
 app.get('/all', routes.selection);
 app.get('/all/:number',routes.selection);
 

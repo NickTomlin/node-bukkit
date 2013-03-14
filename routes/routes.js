@@ -13,7 +13,6 @@ exports.rand = function rand (req, res){
       function(bukkits) {
         var randomBukkit = bukkits[helpers.rand(1,bukkits.length)];
         var returnBukkit = 'http://bukk.it/' +randomBukkit;
-
         // attempt to foil browser caching of resources, non-working
         res.header("Cache-Control", "no-cache, no-store, must-revalidate");
         res.header("Pragma", "no-cache");
@@ -26,16 +25,21 @@ exports.rand = function rand (req, res){
 exports.selection = function(req, res) {
   bukkits.get(
     function allBukkits(bukkits) {
-      var length = bukkits.length;
-      var num = req.params.number;
+      console.log('Received request for %s bukkits',req.params.number);
+      var num = Math.abs(req.params.number); // not that we would ever get passed a negative number...
+      var responseBukkits = [];
 
-      console.log(req.params.number);
+      if (num && num < bukkits.length) {
+        console.log('Done collecting bukkits');
+        // shuffle is imported in our helpers.js
+        responseBukkits = helpers.shuffle(bukkits).slice(0,num);
+      }
       // if request does not include a number, just give all bukkits
-      var slice = num  && num < length ? length - num : 0;
+      else {
+        responseBukkits = bukkits;
+      }
 
-      console.log("slice " + slice);
-      var returnBukkit = JSON.stringify({ "root": 'http://bukk.it', "content" : bukkits.slice(slice)});
-
-      res.send(returnBukkit);
+      console.log('Returning %s bukkits', responseBukkits.length);
+      res.send( JSON.stringify({ "root": 'http://bukk.it', "content" : responseBukkits}) );
   });
 };
