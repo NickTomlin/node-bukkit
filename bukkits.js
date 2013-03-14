@@ -1,7 +1,7 @@
 var request = require('request');
 var cheerio = require('cheerio');
 
-function get(callback) {
+exports.get = function get(callback) {
 
   var bukkitData = []; // hold our bukkit objects
   var url = 'http://bukk.it/'; // bukk.it
@@ -20,6 +20,5 @@ function get(callback) {
     callback(bukkitData);
   }); // end request
 
-}
+};
 
-exports.get = get;
