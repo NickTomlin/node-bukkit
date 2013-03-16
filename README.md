@@ -3,7 +3,12 @@ A simple api to make the consumption of bukkits more programatic. Built with [ex
 Live on [bukkit.nick-tomlin.com](http://bukkit.nick-tomlin.com)
 
 
-RoadMap:
+# RoadMap:
 
 - Get a no-sql DB for caching bukkits
+- Templating examples
 - NSFW mode to filter out all "naughty" bukkits for use on company chat networks
+
+# ChangeLog:
+
+0.0.1 Is this thing on?
