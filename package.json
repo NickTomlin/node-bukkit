@@ -1,6 +1,6 @@
 {
   "name": "bukkit-crawler",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A simple bukkit-scraper",
   "main": "app.js",
   "dependencies": {
@@ -11,10 +11,6 @@
     "stylus": "~0.32.0",
     "nib": "~0.9.1"
   },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git@heroku.com:enigmatic-lowlands-4486.git"
@@ -23,7 +19,7 @@
     "node": "0.8.x",
     "npm": "1.1.x"
   },
-  "author": "",
+  "author": "Nick Tomlin",
   "license": "BSD",
   "gitHead": "039883ae836996bc80ecb6e656bed6ee34674c92"
 }
