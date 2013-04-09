@@ -40,6 +40,9 @@ exports.selection = function(req, res) {
       }
 
       console.log('Returning %s bukkits', responseBukkits.length);
+      res.set({
+        'Content-Type': 'application/json'
+      });
       res.send( JSON.stringify({ "root": 'http://bukk.it', "content" : responseBukkits}) );
   });
 };
