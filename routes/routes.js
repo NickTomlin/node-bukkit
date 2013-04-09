@@ -14,11 +14,14 @@ exports.rand = function rand (req, res){
         var randomBukkit = bukkits[helpers.rand(1,bukkits.length)];
         var returnBukkit = 'http://bukk.it/' +randomBukkit;
         // attempt to foil browser caching of resources, non-working
-        res.header("Cache-Control", "no-cache, no-store, must-revalidate");
-        res.header("Pragma", "no-cache");
-        res.header("Expires", 0);
+        res.set({
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": 0
+        });
+
         res.redirect(307,returnBukkit);
-    });
+      });
 };
 
 // /all/:number
