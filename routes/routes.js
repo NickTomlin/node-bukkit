@@ -30,21 +30,27 @@ exports.selection = function(req, res) {
     function allBukkits(bukkits) {
       console.log('Received request for %s bukkits',req.params.number);
       var num = Math.abs(req.params.number); // not that we would ever get passed a negative number...
-      var responseBukkits = [];
+      var gatheredBukkits = [];
 
       if (num && num < bukkits.length) {
-        console.log('Done collecting bukkits');
-        responseBukkits = _.shuffle(bukkits).slice(0,num);
+        gatheredBukkits = _.shuffle(bukkits).slice(0,num);
       }
       // if request does not include a number, just give all bukkits
       else {
-        responseBukkits = bukkits;
+        gatheredBukkits = bukkits;
       }
+
+      responseBukkits = [];
+
+      _(gatheredBukkits).each(function(bukkit){
+        responseBukkits.push('http://bukk.it/' + bukkit);
+      });
 
       console.log('Returning %s bukkits', responseBukkits.length);
       res.set({
         'Content-Type': 'application/json'
       });
-      res.send( JSON.stringify({ "root": 'http://bukk.it', "content" : responseBukkits}) );
+      res.status(200);
+      res.send( JSON.stringify({ "content" : responseBukkits}) );
   });
 };
