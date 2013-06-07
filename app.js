@@ -2,7 +2,6 @@ var express = require('express')
 , request = require('request')
 , util = require('util')
 , bukkits = require('./bukkits.js')
-, helpers = require('./helpers.js')
 , routes = require('./routes/routes.js')
 , path = require ('path')
 ;

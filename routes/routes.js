@@ -1,5 +1,5 @@
 var bukkits = require('../bukkits.js');
-var helpers = require('../helpers.js');
+var _ = require('lodash');
 
 exports.index = function index (req,res) {
   res.render('index', {
@@ -11,7 +11,7 @@ exports.rand = function rand (req, res){
     bukkits.get(
     // callback
       function(bukkits) {
-        var randomBukkit = bukkits[helpers.rand(1,bukkits.length)];
+        var randomBukkit = bukkits[_.random(1, bukkits.length)];
         var returnBukkit = 'http://bukk.it/' +randomBukkit;
         // attempt to foil browser caching of resources, non-working
         res.set({
@@ -34,8 +34,7 @@ exports.selection = function(req, res) {
 
       if (num && num < bukkits.length) {
         console.log('Done collecting bukkits');
-        // shuffle is imported in our helpers.js
-        responseBukkits = helpers.shuffle(bukkits).slice(0,num);
+        responseBukkits = _.shuffle(bukkits).slice(0,num);
       }
       // if request does not include a number, just give all bukkits
       else {
