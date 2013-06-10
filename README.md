@@ -1,13 +1,14 @@
-A simple api to make the consumption of bukkits more programatic. Built with [express](http://expressjs.com/), [cheerio](https://github.com/MatthewMueller/cheerio), and plenty of "WTF, Async!?!"
+An express-based api that enables the programatic consumption of animated gifs. Suggested uses: [hubot](http://hubot.github.com/), placeholder content, and general merry making.
 
-Live on [bukkit.nick-tomlin.com](http://bukkit.nick-tomlin.com)
+Live @ [bukkit.nick-tomlin.com](http://bukkit.nick-tomlin.com)
 
 
 # RoadMap:
 
-- Get a no-sql DB for caching bukkits
-- Templating examples
-- NSFW mode to filter out all "naughty" bukkits for use on company chat networks
+- Cache bukkits
+- Switch to [restify](https://github.com/mcavage/node-restify)
+- NSFW mode to filter out all "naughty" bukkits for use in more
+  professional settings
 
 # ChangeLog:
 
