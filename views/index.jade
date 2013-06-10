@@ -2,6 +2,20 @@ extends layout
 
 block content
   h1= title
-  p Return 400 bukkits:
-  pre
-    code curl -g http://bukkit.nick-tomlin.com/all/400
+  h3
+    | Programatic access to <a href="#target1">Bukk.it</a>
+
+  .example
+    p Grab all bukkits using <em>/all</em>:
+    pre
+      $ curl -g http://bukkit.nick-tomlin.com/all
+
+  .example
+    p Return 400 bukkits using <em>/all/:amount</em>:
+    pre
+      $ curl -g http://bukkit.nick-tomlin.com/all/400
+
+  .example
+    p Set a single bukkit with <em>/single</em>:
+    pre
+       <img src="http://bukkit.nick-tomlin.com/single">
